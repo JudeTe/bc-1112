@@ -23,6 +23,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="/chain/">Chain</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/mine/">Mine</a></li>
                         <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -41,7 +42,7 @@
                         </button>
                     </form>
                     {% if logged_in %}
-                        <div style="margin-left: 50px;">Welcome, {{ username }}!</div>
+                        <div style="margin-left: 50px;">Welcome, {{ user.username }}!</div>
                         <!-- 顯示需要登入後才能看到的內容 -->
                         <!-- <div>This content is only visible to logged-in users.</div> -->
                     {% else %}
@@ -115,8 +116,14 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Vote</a></div>
+                                <div class="text-center">
+                                    <!-- <a class="btn btn-outline-dark mt-auto" href="#">Vote</a> -->
+                                    <form action="{{ url_for('vote_in_html', user_id=user.id) }}" method="POST">
+                                        <button class="btn btn-outline-dark mt-auto" type="submit">Vote</button>
+                                    </form>
+                                </div>
                             </div>
+                            
                         </div>
                     </div>
                     <div class="col mb-5">

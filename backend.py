@@ -89,7 +89,7 @@ class Blockchain:
             'candidate': Party_B,
             'Votes': 1
             })
-        return self.last_block['index'] + 1
+        return self.last_block['index']
     
     @property
     def last_block(self):

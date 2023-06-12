@@ -18,16 +18,16 @@ class User():
         User.id_counter += 1
 
 def require_login(func):
-        def wrapper(*args, **kwargs):
-            if 'username' in session:
-                # logged_in = True
-                # username = session['username']
-                return func(logged_in=True, username=session['username'], *args, **kwargs)
-            else:
-                # logged_in = False
-                # username = None
-                return redirect(url_for('login'))
-        return wrapper
+    def wrapper(*args, **kwargs):
+        if 'username' in session:
+            # logged_in = True
+            # username = session['username']
+            return func(logged_in=True, username=session['username'], *args, **kwargs)
+        else:
+            # logged_in = False
+            # username = None
+            return redirect(url_for('login'))
+    return wrapper
 
 def create_app():
     app = Flask(__name__, template_folder='../templates', static_folder='../static')
@@ -41,9 +41,23 @@ def create_app():
 
 
     @app.route('/index')
-    @require_login
-    def home(logged_in, username):
-        return render_template('index.html', logged_in=logged_in, username=username)
+    # @require_login
+    def home():
+        if 'user_id' in session:
+            user_id = session['user_id']
+            user = next((u for u in User.all_users if u.id == user_id), None)
+            if user:
+                logged_in = True
+                is_admin = user.is_admin
+            else:
+                logged_in = False
+                # is_admin = False
+                return redirect(url_for('login'))
+        else:
+            return redirect(url_for('login'))
+        return render_template('index.html', logged_in=logged_in, user=user)
+    # def home(logged_in, user):
+    #     return render_template('index.html', logged_in=logged_in, username=user.username)
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():
@@ -51,17 +65,22 @@ def create_app():
             username = request.form['username']
             password = request.form['password']
             # 在這裡進行帳號密碼的驗證
-            if username != 'abc' and password != '123':
-                return render_template('login.html')
-            # 如果驗證成功，將使用者名稱存入 session 中，示範程式碼如下
-            session['username'] = username
-            return redirect('/index')
+            user = authenticate_user(username, password)
+            if user:
+                session['user_id'] = user.id
+                return redirect('/index')
         return render_template('login.html')
 
     @app.route('/logout')
     def logout():
-        session.pop('username', None)
+        session.pop('user_id', None)
         return redirect('/login')
+
+    def authenticate_user(username, password):
+        # 在這裡進行帳號密碼的驗證
+        # 示範程式碼，假設 username 和 password 都符合條件才認證成功
+        user = next((u for u in User.all_users if u.username == username and u.password == password), None)
+        return user
 
     """
     Below is old main.py
@@ -123,12 +142,13 @@ def create_app():
     @app.route('/put_vote/<name>',methods=['POST','GET'])
     def put_vote(name):
         # POLL vote by Voter
-        if request.method=='POST'and name in voterID_array:
-            voterID_array.remove(name)
+        if request.method=='POST':
+        # if request.method=='POST' and name in voterID_array:
+            # voterID_array.remove(name)
             option=request.form['vote']
-            return redirect(url_for("new_transaction",name=name,option=option))
+            return redirect(url_for("new_transaction",name=name, option=option))
         else:
-            return render_template("fillup.html")
+            return render_template("fillup_old.html")
 
     # The process of Mining
     # This takes up the transactions done recently 
@@ -139,14 +159,16 @@ def create_app():
         last_proof = last_block['proof']
         proof = blockchain.proof_of_work(last_proof)
         
-        block = blockchain.new_block(proof)
-        data = {
-            'message': "New Block Mined",
-            'index': block['index'],
-            'transactions': block['transactions'],
-            'proof': block['proof'],
-            'previous_hash': block['previous_hash'],
-        }
+        # block = blockchain.new_block(proof)
+        block = blockchain.chain[0]
+        # data = {
+        #     'message': "New Block Mined",
+        #     'index': block['index'],
+        #     'transactions': block['transactions'],
+        #     'proof': block['proof'],
+        #     'previous_hash': block['previous_hash'],
+        # }
+        data = {'message': 'Mine succeed!'}
         response = app.response_class(
             response =json.dumps(data,indent=2),
             status = 200,
@@ -171,10 +193,10 @@ def create_app():
             # Create a new Transaction
             """ name=values['Party_B']
             option=values['Party_A'] """
-        if name not in vote_check:
-            return redirect(url_for("control",User="Voter",ID=name))
-        else:
-            vote_check.remove(name)
+        # if name not in vote_check:
+        #     return redirect(url_for("control",User="Voter",ID=name))
+        # else:
+        #     vote_check.remove(name)
 
         index = blockchain.new_transaction(name, option)
         data = {
@@ -202,5 +224,12 @@ def create_app():
     
     for user in User.all_users:
         print(user.id, user.username)
+
+    @app.route('/voting/<user_id>', methods=['POST'])
+    def vote_in_html(user_id):
+        # print(f"user_id: {user_id}")
+        user = next((u for u in User.all_users if u.id == int(user_id)), None)
+        user.is_voted = True
+        return redirect(url_for("put_vote", name=user.username))
 
     return app
