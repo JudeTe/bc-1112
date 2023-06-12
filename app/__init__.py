@@ -4,6 +4,19 @@ from app.route import hello_world, index
 from backend import Blockchain
 
 
+class User():
+    id_counter = 0
+    all_users = []
+    def __init__(self, username, password, is_admin=False):
+        self.id = User.id_counter
+        self.is_admin = is_admin
+        self.is_voted = False
+        self.ganache_address = None
+        self.username = username
+        self.password = password
+        User.all_users.append(self)
+        User.id_counter += 1
+
 def require_login(func):
         def wrapper(*args, **kwargs):
             if 'username' in session:
@@ -21,6 +34,11 @@ def create_app():
     app.secret_key = 'your_secret_key'
     app.add_url_rule('/', '/', hello_world)
     # app.add_url_rule('/index', 'index', index)
+
+    user = User(username='abc', password='123', is_admin=True)
+    user = User(username='test1', password='123')
+    user = User(username='test2', password='123')
+
 
     @app.route('/index')
     @require_login
@@ -182,5 +200,7 @@ def create_app():
         )
         return response
     
+    for user in User.all_users:
+        print(user.id, user.username)
 
     return app
