@@ -14,14 +14,6 @@
         <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
     </head>
     <body>
-        {% if logged_in %}
-            <div>Welcome, {{ username }}!</div>
-            <!-- 顯示需要登入後才能看到的內容 -->
-            <!-- <div>This content is only visible to logged-in users.</div> -->
-        {% else %}
-            <!-- <div>Please <a href="/login">login</a>.</div> -->
-
-        {% endif %}
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -30,7 +22,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Chain</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/chain/">Chain</a></li>
                         <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -48,6 +40,21 @@
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
                     </form>
+                    {% if logged_in %}
+                        <div style="margin-left: 50px;">Welcome, {{ username }}!</div>
+                        <!-- 顯示需要登入後才能看到的內容 -->
+                        <!-- <div>This content is only visible to logged-in users.</div> -->
+                    {% else %}
+                        <!-- <div>Please <a href="/login">login</a>.</div> -->
+
+                    {% endif %}
+                    <form class="d-flex" style="margin-left: 20px;" action="{{ url_for('logout') }}" method="get">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <!-- <i class="bi-cart-fill me-1"></i> -->
+                            Logout
+                            <!-- <span class="badge bg-dark text-white ms-1 rounded-pill">0</span> -->
+                        </button>
+                    </form>
                 </div>
             </div>
         </nav>
@@ -56,7 +63,7 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Vote on Chain</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">BlockChain Voting system on Website</p>
+                    <p class="lead fw-normal text-white-50 mb-0">BlockChain Voting System on Website</p>
                 </div>
             </div>
         </header>
