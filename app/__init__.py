@@ -74,6 +74,7 @@ def create_app():
                 return redirect(url_for('login'))
         else:
             return redirect(url_for('login'))
+        
         vote_status = {
             "model": 0,
             "genie": 0,
@@ -84,6 +85,7 @@ def create_app():
         }
         for i in blockchain.chain[0]["transactions"]:
             vote_status[i['candidate']] += 1
+            
         return render_template('index.html', logged_in=logged_in, user=user, vote_status=vote_status)
     # def home(logged_in, user):
     #     return render_template('index.html', logged_in=logged_in, username=user.username)
