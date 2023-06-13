@@ -89,6 +89,7 @@ class Blockchain:
             'candidate': Party_B,
             'Votes': 1
             })
+        self.chain[-1]['transactions'] = self.current_transactions
         return self.last_block['index']
     
     @property

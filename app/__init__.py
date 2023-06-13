@@ -185,8 +185,8 @@ def create_app():
         last_proof = last_block['proof']
         proof = blockchain.proof_of_work(last_proof)
         
-        # block = blockchain.new_block(proof)
-        block = blockchain.chain[0]
+        block = blockchain.new_block(proof)
+        # block = blockchain.chain[0]
         # data = {
         #     'message': "New Block Mined",
         #     'index': block['index'],
