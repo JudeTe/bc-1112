@@ -86,7 +86,7 @@
                                     <h5 class="fw-bolder">model</h5>
                                     <!-- Product price-->
                                     {% if user.is_voted or user.is_admin%}
-                                        Votes: 0
+                                        Votes: {{ vote_status.model }}
                                     {% endif %}
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                                     </div> -->
                                     <!-- Product price-->
                                     {% if user.is_voted or user.is_admin%}
-                                        Votes: 0
+                                        Votes: {{ vote_status.genie }}
                                     {% endif %}
                                 </div>
                             </div>
@@ -155,7 +155,7 @@
                                     <h5 class="fw-bolder">pineapple</h5>
                                     <!-- Product price-->
                                     {% if user.is_voted or user.is_admin%}
-                                        Votes: 0
+                                        Votes: {{ vote_status.pineapple }}
                                     {% endif %}
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                                     <h5 class="fw-bolder">jester</h5>
                                     <!-- Product price-->
                                     {% if user.is_voted or user.is_admin%}
-                                        Votes: 0
+                                        Votes: {{ vote_status.jester }}
                                     {% endif %}
                                 </div>
                             </div>
@@ -228,7 +228,7 @@
                                     <!-- Product price-->
                                     <!-- <span class="text-muted text-decoration-line-through">$20.00</span> -->
                                     {% if user.is_voted or user.is_admin%}
-                                        Votes: 0
+                                        Votes: {{ vote_status.wrestler }}
                                     {% endif %}
                                 </div>
                             </div>
@@ -267,7 +267,7 @@
                                     </div> -->
                                     <!-- Product price-->
                                     {% if user.is_voted or user.is_admin%}
-                                        Votes: 0
+                                        Votes: {{ vote_status.dog }}
                                     {% endif %}
                                 </div>
                             </div>
