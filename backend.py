@@ -6,6 +6,13 @@ import requests
 import json
 from uuid import uuid4
 
+
+def hash_string(string):
+    hash_object = hashlib.sha256()
+    hash_object.update(string.encode('utf-8'))
+    return hash_object.hexdigest()
+
+
 class Blockchain:
     
     # Initialization of PARAMETERS
@@ -72,12 +79,13 @@ class Blockchain:
             # This method returns the time as a floating point number 
             # expressed in seconds since the epoch January 1, 1970
             'timestamp': time(),
-            'transactions': self.current_transactions,
+            # 'transactions': self.current_transactions,
+            'transactions': [],
             'proof': proof,
             'session_key': node_identifier,
             'previous_hash': previous_hash or self.hash(self.chain[-1]),
             }
-        self.current_transactions = []
+        # self.current_transactions = []
         self.chain.append(block)
         return block
     
@@ -85,11 +93,11 @@ class Blockchain:
         self.current_transactions.append({
             # Part_A is the nominee participating in the elections
             # Party_B is the voter who votes
-            'voter': Party_A,
+            'voter': hash_string(Party_A), #hash
             'candidate': Party_B,
             'Votes': 1
             })
-        self.chain[-1]['transactions'] = self.current_transactions
+        self.chain[0]['transactions'] = self.current_transactions
         return self.last_block['index']
     
     @property

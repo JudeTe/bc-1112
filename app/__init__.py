@@ -225,8 +225,9 @@ def create_app():
         #     vote_check.remove(name)
 
         index = blockchain.new_transaction(name, option)
-        data = {
-            'message': f'Transaction(The vote) will be added to Block {index}'}
+        data = {'message': 'Transaction(The vote) will be added to Block 0'}
+        # data = {
+        #     'message': f'Transaction(The vote) will be added to Block {index}'}
         response = app.response_class(
             response = json.dumps(data,indent=2),
             status = 201,
@@ -258,7 +259,7 @@ def create_app():
     def vote_in_html(user_id):
         user = next((u for u in User.all_users if u.id == int(user_id)), None)
         if user.is_voted:
-            return redirect(url_for("control", User=user.username, ID=user_id))
+            return redirect(url_for("control", User=user.username, ID=user_id, error_msg='不可重複投票!'))
         user.is_voted = True
         return redirect(url_for("put_vote", name=user.username))
 
