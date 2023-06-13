@@ -2,16 +2,18 @@ import json
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify
 from app.route import hello_world, index
 from backend import Blockchain
+from app.donate import transaction
 
 
 class User():
     id_counter = 0
     all_users = []
-    def __init__(self, username, password, is_admin=False):
+    def __init__(self, username, password, is_admin=False, ganache_address=None, pk=None):
         self.id = User.id_counter
         self.is_admin = is_admin
         self.is_voted = False
-        self.ganache_address = None
+        self.ganache_address = ganache_address
+        self.pk = pk
         self.username = username
         self.password = password
         User.all_users.append(self)
@@ -35,7 +37,11 @@ def create_app():
     app.add_url_rule('/', '/', hello_world)
     # app.add_url_rule('/index', 'index', index)
 
-    user = User(username='abc', password='123', is_admin=True)
+    user = User(username='abc',
+                password='123',
+                is_admin=True,
+                ganache_address='0xd470B7e3ce7274A4D8A8c0A5FaEc9d323461e3B5',
+                pk='0xe9af0d4622ea2163e773291301fa030c9d58f1334b858c8afe24320a99d823ae')
     user = User(username='test1', password='123')
     user = User(username='test2', password='123')
 
@@ -92,7 +98,6 @@ def create_app():
     @app.route('/donate/', methods=['GET'])
     def donate_page():
         user = redirect_login()
-        print("Here")
         return render_template('donate.html', user=user, logged_in=True)
 
     @app.route('/logout')
@@ -262,5 +267,16 @@ def create_app():
             return redirect(url_for("control", User=user.username, ID=user_id, error_msg='不可重複投票!'))
         user.is_voted = True
         return redirect(url_for("put_vote", name=user.username))
+
+    @app.route('/donate_in_html/<address>', methods=['POST'])
+    def donate_in_html(address):
+        user_id = session['user_id']
+        user = next((u for u in User.all_users if u.id == user_id), None)
+        print(address)
+        transaction(user, address, request.form['money'])
+        # print(user)
+        # print(request.form)
+        # print(address)
+        return redirect(url_for('donate'))
 
     return app
