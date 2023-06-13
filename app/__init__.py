@@ -158,10 +158,12 @@ def create_app():
             return render_template('initial.html')
 
 
-    @app.route('/<User>_repeat/<ID>')
-    def control(User,ID):
+    @app.route('/<User>_repeat/<ID>/<error_msg>')
+    def control(User, ID, error_msg=""):
+        if not error_msg:
+            error_msg = f"已投過票，或查無ID: {ID}"
         # CONTROL Reload and Back Reference After Vote
-        return render_template("repeat.html",User=User,ID=ID)
+        return render_template("repeat_old.html",User=User, ID=ID, error_msg=error_msg)
 
     @app.route('/put_vote/<name>',methods=['POST','GET'])
     def put_vote(name):
@@ -232,8 +234,11 @@ def create_app():
         )
         return response
 
-    @app.route('/chain/', methods=['GET'])
-    def full_chain():
+    @app.route('/chain/<user_id>', methods=['GET'])
+    def full_chain(user_id):
+        user = next((u for u in User.all_users if u.id == int(user_id)), None)
+        if user.is_admin == False:
+            return redirect(url_for("control", User=user.username, ID=user_id, error_msg='權限不足！'))
         # Displays the whole block chain
         data = {
             'chain': blockchain.chain,
@@ -251,8 +256,9 @@ def create_app():
 
     @app.route('/voting/<user_id>', methods=['POST'])
     def vote_in_html(user_id):
-        # print(f"user_id: {user_id}")
         user = next((u for u in User.all_users if u.id == int(user_id)), None)
+        if user.is_voted:
+            return redirect(url_for("control", User=user.username, ID=user_id))
         user.is_voted = True
         return redirect(url_for("put_vote", name=user.username))
 
