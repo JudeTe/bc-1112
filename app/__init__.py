@@ -85,7 +85,7 @@ def create_app():
         }
         for i in blockchain.chain[0]["transactions"]:
             vote_status[i['candidate']] += 1
-            
+
         return render_template('index.html', logged_in=logged_in, user=user, vote_status=vote_status)
     # def home(logged_in, user):
     #     return render_template('index.html', logged_in=logged_in, username=user.username)
@@ -182,13 +182,13 @@ def create_app():
         # CONTROL Reload and Back Reference After Vote
         return render_template("repeat_old.html",User=User, ID=ID, error_msg=error_msg)
 
-    @app.route('/put_vote/<name>',methods=['POST','GET'])
-    def put_vote(name):
+    @app.route('/put_vote/<name>/<option>',methods=['POST','GET'])
+    def put_vote(name, option):
         # POLL vote by Voter
         if request.method=='POST':
         # if request.method=='POST' and name in voterID_array:
             # voterID_array.remove(name)
-            option=request.form['vote']
+            # option=request.form['vote']
             return redirect(url_for("new_transaction",name=name, option=option))
         else:
             return render_template("fillup_old.html")
@@ -272,13 +272,15 @@ def create_app():
     for user in User.all_users:
         print(user.id, user.username)
 
-    @app.route('/voting/<user_id>', methods=['POST'])
-    def vote_in_html(user_id):
+    @app.route('/voting/<user_id>/<option>', methods=['POST'])
+    def vote_in_html(user_id, option):
         user = next((u for u in User.all_users if u.id == int(user_id)), None)
         if user.is_voted:
             return redirect(url_for("control", User=user.username, ID=user_id, error_msg='不可重複投票!'))
         user.is_voted = True
-        return redirect(url_for("put_vote", name=user.username))
+        # option = 'dog'
+        # 307 -> POST Method
+        return redirect(url_for("put_vote", name=user.username, option=option), code=307)
 
     @app.route('/donate_in_html/<address>', methods=['POST'])
     def donate_in_html(address):
