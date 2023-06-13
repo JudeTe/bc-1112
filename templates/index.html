@@ -85,13 +85,25 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">model</h5>
                                     <!-- Product price-->
-                                    Votes: 0
+                                    {% if user.is_voted or user.is_admin%}
+                                        Votes: 0
+                                    {% endif %}
                                 </div>
                             </div>
                             <!-- Product actions-->
+                            {% if not user.is_voted %}
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Vote</a></div>
+                                <div class="text-center">
+                                    <!-- <a class="btn btn-outline-dark mt-auto" href="#">Vote</a> -->
+                                    <form action="{{ url_for('vote_in_html', user_id=user.id) }}" method="POST">
+                                        <button class="btn btn-outline-dark mt-auto" type="submit">Vote</button>
+                                    </form>
+                                </div>
                             </div>
+                            {% endif %}
+                            <!-- <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Vote</a></div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="col mb-5">
@@ -112,10 +124,13 @@
                                         <div class="bi-star-fill"></div>
                                     </div> -->
                                     <!-- Product price-->
-                                    Votes: 0
+                                    {% if user.is_voted or user.is_admin%}
+                                        Votes: 0
+                                    {% endif %}
                                 </div>
                             </div>
                             <!-- Product actions-->
+                            {% if not user.is_voted %}
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <!-- <a class="btn btn-outline-dark mt-auto" href="#">Vote</a> -->
@@ -124,7 +139,7 @@
                                     </form>
                                 </div>
                             </div>
-                            
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col mb-5">
@@ -139,13 +154,25 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">pineapple</h5>
                                     <!-- Product price-->
-                                    Votes: 0
+                                    {% if user.is_voted or user.is_admin%}
+                                        Votes: 0
+                                    {% endif %}
                                 </div>
                             </div>
                             <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <!-- <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Vote</a></div>
+                            </div> -->
+                            {% if not user.is_voted %}
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <!-- <a class="btn btn-outline-dark mt-auto" href="#">Vote</a> -->
+                                    <form action="{{ url_for('vote_in_html', user_id=user.id) }}" method="POST">
+                                        <button class="btn btn-outline-dark mt-auto" type="submit">Vote</button>
+                                    </form>
+                                </div>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col mb-5">
@@ -158,13 +185,25 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">jester</h5>
                                     <!-- Product price-->
-                                    Votes: 0
+                                    {% if user.is_voted or user.is_admin%}
+                                        Votes: 0
+                                    {% endif %}
                                 </div>
                             </div>
                             <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <!-- <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Vote</a></div>
+                            </div> -->
+                            {% if not user.is_voted %}
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <!-- <a class="btn btn-outline-dark mt-auto" href="#">Vote</a> -->
+                                    <form action="{{ url_for('vote_in_html', user_id=user.id) }}" method="POST">
+                                        <button class="btn btn-outline-dark mt-auto" type="submit">Vote</button>
+                                    </form>
+                                </div>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col mb-5">
@@ -188,13 +227,25 @@
                                     </div> -->
                                     <!-- Product price-->
                                     <!-- <span class="text-muted text-decoration-line-through">$20.00</span> -->
-                                    Votes: 1
+                                    {% if user.is_voted or user.is_admin%}
+                                        Votes: 0
+                                    {% endif %}
                                 </div>
                             </div>
                             <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <!-- <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Vote</a></div>
+                            </div> -->
+                            {% if not user.is_voted %}
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <!-- <a class="btn btn-outline-dark mt-auto" href="#">Vote</a> -->
+                                    <form action="{{ url_for('vote_in_html', user_id=user.id) }}" method="POST">
+                                        <button class="btn btn-outline-dark mt-auto" type="submit">Vote</button>
+                                    </form>
+                                </div>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col mb-5">
@@ -215,13 +266,22 @@
                                         <div class="bi-star-fill"></div>
                                     </div> -->
                                     <!-- Product price-->
-                                    Votes: 2
+                                    {% if user.is_voted or user.is_admin%}
+                                        Votes: 0
+                                    {% endif %}
                                 </div>
                             </div>
                             <!-- Product actions-->
+                            {% if not user.is_voted %}
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Vote</a></div>
+                                <div class="text-center">
+                                    <!-- <a class="btn btn-outline-dark mt-auto" href="#">Vote</a> -->
+                                    <form action="{{ url_for('vote_in_html', user_id=user.id) }}" method="POST">
+                                        <button class="btn btn-outline-dark mt-auto" type="submit">Vote</button>
+                                    </form>
+                                </div>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
