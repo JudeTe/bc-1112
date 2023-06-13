@@ -273,7 +273,7 @@ def create_app():
         print(user.id, user.username)
 
     @app.route('/voting/<user_id>/<option>', methods=['POST'])
-    def vote_in_html(user_id, option):
+    def vote_on_web(user_id, option):
         user = next((u for u in User.all_users if u.id == int(user_id)), None)
         if user.is_voted:
             return redirect(url_for("control", User=user.username, ID=user_id, error_msg='不可重複投票!'))
