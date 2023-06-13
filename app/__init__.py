@@ -40,8 +40,8 @@ def create_app():
     user = User(username='abc',
                 password='123',
                 is_admin=True,
-                ganache_address='0xd470B7e3ce7274A4D8A8c0A5FaEc9d323461e3B5',
-                pk='0xe9af0d4622ea2163e773291301fa030c9d58f1334b858c8afe24320a99d823ae')
+                ganache_address='0xd2EDa074d0ED479Ee6a7e5AC548C9182a8c91C6A',
+                pk='0x77b0c94eab0e46a986e15f9577c9c36911c870acfe2ebdb6c1d5c6a183219917')
     user = User(username='test1', password='123')
     user = User(username='test2', password='123')
 
@@ -108,7 +108,7 @@ def create_app():
         return render_template('login.html')
 
     @app.route('/donate/', methods=['GET'])
-    def donate_page():
+    def donate():
         user = redirect_login()
         return render_template('donate.html', user=user, logged_in=True)
 
