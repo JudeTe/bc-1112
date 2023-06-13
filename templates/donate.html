@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Online Votepage - HOME</title>
+        <title>Online Votepage - Donate</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" />
         <!-- Bootstrap icons-->
@@ -21,10 +21,9 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/index">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="/chain/">Chain</a></li>
                         <li class="nav-item"><a class="nav-link" href="/mine/">Mine</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/donate/">Donate</a></li>
                         <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -35,13 +34,13 @@
                             </ul>
                         </li> -->
                     </ul>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
+{#                    <form class="d-flex">#}
+{#                        <button class="btn btn-outline-dark" type="submit">#}
+{#                            <i class="bi-cart-fill me-1"></i>#}
+{#                            Cart#}
+{#                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>#}
+{#                        </button>#}
+{#                    </form>#}
                     {% if logged_in %}
                         <div style="margin-left: 50px;">Welcome, {{ user.username }}!</div>
                         <!-- 顯示需要登入後才能看到的內容 -->
@@ -64,7 +63,7 @@
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Vote on Chain</h1>
+                    <h1 class="display-4 fw-bolder">Donate on Chain</h1>
                     <p class="lead fw-normal text-white-50 mb-0">BlockChain Voting System on Website</p>
                 </div>
             </div>
@@ -85,12 +84,12 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">model</h5>
                                     <!-- Product price-->
-                                    Votes: 0
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Vote</a></div>
+
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Donate</a></div>
                             </div>
                         </div>
                     </div>
@@ -112,19 +111,16 @@
                                         <div class="bi-star-fill"></div>
                                     </div> -->
                                     <!-- Product price-->
-                                    Votes: 0
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <!-- <a class="btn btn-outline-dark mt-auto" href="#">Vote</a> -->
-                                    <form action="{{ url_for('vote_in_html', user_id=user.id) }}" method="POST">
-                                        <button class="btn btn-outline-dark mt-auto" type="submit">Vote</button>
-                                    </form>
+                                        <button class="btn btn-outline-dark mt-auto" type="submit">Donate</button>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="col mb-5">
@@ -139,12 +135,11 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">pineapple</h5>
                                     <!-- Product price-->
-                                    Votes: 0
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Vote</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Donate</a></div>
                             </div>
                         </div>
                     </div>
@@ -158,12 +153,11 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">jester</h5>
                                     <!-- Product price-->
-                                    Votes: 0
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Vote</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Donate</a></div>
                             </div>
                         </div>
                     </div>
@@ -188,12 +182,11 @@
                                     </div> -->
                                     <!-- Product price-->
                                     <!-- <span class="text-muted text-decoration-line-through">$20.00</span> -->
-                                    Votes: 1
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Vote</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Donate</a></div>
                             </div>
                         </div>
                     </div>
@@ -215,12 +208,11 @@
                                         <div class="bi-star-fill"></div>
                                     </div> -->
                                     <!-- Product price-->
-                                    Votes: 2
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Vote</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Donate</a></div>
                             </div>
                         </div>
                     </div>

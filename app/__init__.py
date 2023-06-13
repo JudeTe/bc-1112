@@ -39,6 +39,19 @@ def create_app():
     user = User(username='test1', password='123')
     user = User(username='test2', password='123')
 
+    def redirect_login():
+        if 'user_id' in session:
+            user_id = session['user_id']
+            user = next((u for u in User.all_users if u.id == user_id), None)
+            if user:
+                logged_in = True
+                is_admin = user.is_admin
+            else:
+                logged_in = False
+                return redirect(url_for('login'))
+        else:
+            redirect(url_for('login'))
+        return user
 
     @app.route('/index')
     # @require_login
@@ -69,7 +82,18 @@ def create_app():
             if user:
                 session['user_id'] = user.id
                 return redirect('/index')
+        if 'user_id' in session:
+            user_id = session['user_id']
+            user = next((u for u in User.all_users if u.id == user_id), None)
+            if user:
+                return redirect('/index')
         return render_template('login.html')
+
+    @app.route('/donate/', methods=['GET'])
+    def donate_page():
+        user = redirect_login()
+        print("Here")
+        return render_template('donate.html', user=user, logged_in=True)
 
     @app.route('/logout')
     def logout():
